@@ -2,39 +2,42 @@
 # 
  
 # import libraries
-
+# slow the code down if we need it 
 from time import sleep
-
+# randomize numbers
 from random import randint 
-
+# a comprehensive game library used for python (how we get graphics)
 import pygame as pg
-
+# allows use to manage folders and files in directaries 
 import os
-
+# finds where the code is in files on computer (where to look for files such as our rock.png)
 game_folder = os.path.dirname(__file__)
 print(game_folder)
 
-# game settings
+# game settings and we capitalize them becuase they are game settings 
 WIDTH = 800
 HEIGHT = 600
 FPS = 30
 
-# define colors
-# tuples are immutable - cannot change once created
+# define colors (RGB values)
+# Tuple are immutable - cannot change once created
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
-
+# initializes pygame
 pg.init()
 pg.mixer.init()
-
+# opens pygame into a windows that we set the values to
 screen = pg.display.set_mode((WIDTH, HEIGHT))
+# displayes message on the top of the window 
 pg.display.set_caption("Rock, Paper, Scissors...")
+#
 clock = pg.time.Clock()
-
+# rock_image = pg.image.load dispays the variable into a file to when we want to display it we can
 rock_image = pg.image.load(os.path.join(game_folder, 'rock.jpg')).convert()
+# rock_image_rect lets up move the code around 
 rock_image_rect = rock_image.get_rect()
 rock_image_rect.x = 100
 
@@ -67,6 +70,7 @@ while running:
     clock.tick(FPS)
 
     for event in pg.event.get():
+         # when exited window it will stop the loop from running
         if event.type == pg.QUIT:
             running = False
         
