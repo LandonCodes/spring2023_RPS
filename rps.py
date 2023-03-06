@@ -179,6 +179,9 @@ while running:
         if player_choice == "paper":
             player_image_rect.x = 150
             player_image_rect.y = 50
+        if player_choice == "paper":
+            computer_image_rect.x = 480
+            computer_image_rect.y = 50
 
     if player_choice == "paper" and cpu_choice == "rock":
         screen.blit(paper_image, paper_image_rect)
@@ -195,6 +198,9 @@ while running:
         if player_choice == "paper":
             player_image_rect.x = 150
             player_image_rect.y = 50
+        if player_choice == "paper":
+            computer_image_rect.x = 480
+            computer_image_rect.y = 50
             
     ############# scissors ##############
     if player_choice == "scissors" and cpu_choice == "scissors":
@@ -238,6 +244,10 @@ while running:
         screen.blit(computer_image, computer_image_rect)
         #displays the text onto the screen if called
         draw_text("YOU WIN", 22, GREEN, WIDTH/2, HEIGHT/10)
+         #moves computer image after called
+        if player_choice == "scissors":
+            computer_image_rect.x = 480
+            computer_image_rect.y = 50
 
     if player_choice == "scissors" and cpu_choice == "rock":
         screen.blit(scissors_image, scissors_image_rect)
@@ -252,6 +262,10 @@ while running:
         screen.blit(computer_image, computer_image_rect)
         #displays the text onto the screen if called
         draw_text("YOU WIN", 22, GREEN, WIDTH/2, HEIGHT/10)
+         #moves computer image after called
+        if player_choice == "scissors":
+            computer_image_rect.x = 480
+            computer_image_rect.y = 50
 ################# rock #################
     if player_choice == "rock" and cpu_choice == "rock":
         #displays player choice image
@@ -296,7 +310,10 @@ while running:
         screen.blit(computer_image, computer_image_rect)
         #displays the text onto the screen if called in color red
         draw_text("YOU LOSE", 22, RED, WIDTH/2, HEIGHT/10)
-        #moves computer image over after user input
+        if player_choice == "rock":
+            player_image_rect.x = 150
+            player_image_rect.y = 50
+             #moves computer image over after user input
         if player_choice == "rock":
             computer_image_rect.x = 480
             computer_image_rect.y = 50
@@ -317,6 +334,12 @@ while running:
         screen.blit(computer_image, computer_image_rect)
         #displays the text onto the screen if called in color green
         draw_text("YOU WIN", 22, GREEN, WIDTH/2, HEIGHT/10)
+        if player_choice == "rock":
+            player_image_rect.x = 150
+            player_image_rect.y = 50
+        if player_choice == "rock":
+            computer_image_rect.x = 480
+            computer_image_rect.y = 50
 
     pg.display.flip()
 
