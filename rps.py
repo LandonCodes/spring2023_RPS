@@ -1,5 +1,4 @@
 #File created by: Landon Zafiropoulo
-# 
  
 # import libraries
 # slow the code down if we need it 
@@ -75,16 +74,20 @@ scissors_image_rect = scissors_image.get_rect()
 cpu_scissors_image_rect = scissors_image_rect
 scissors_image_rect.x = 550
 
-#storing image for later use when the user wins
-youwin_image = pg.image.load(os.path.join(game_folder, 'youwin.jpg')).convert()
-youwin_image_rect = youwin_image.get_rect()
+#storing image for later use when the user interacts
+player_image = pg.image.load(os.path.join(game_folder, 'player.jpg')).convert()
+player_image_rect = player_image.get_rect()
+
+computer_image = pg.image.load(os.path.join(game_folder, 'computer.jpg')).convert()
+computer_image_rect = computer_image.get_rect()
+
 # runs the window until user presses x on screen or esc or alt f4
 running = True
 #player choice in game
 player_choice = ""
 #cpu choice in game
 cpu_choice = ""
-
+#game runs until shut off (while loop)
 while running:
     clock.tick(FPS)
 
@@ -94,27 +97,32 @@ while running:
             running = False
         
         if event.type == pg.MOUSEBUTTONUP:
-            # 
+            # gets mouse cords and the postion of the mouse on screen
             mouse_coords = pg.mouse.get_pos()
-
-            print(rock_image_rect.collidepoint(mouse_coords))
+            #tracks user mouse waiting util user click on rock
             if rock_image_rect.collidepoint(mouse_coords):
                 player_choice = "rock"
+                #if user clicked on rock cpu will randomly generate between rock paper or scissors 
                 cpu_choice = cpu_randchoice()
+                #if user click on paper it will call cpu to randomly generate
             elif paper_image_rect.collidepoint(mouse_coords):
                 player_choice = "paper"  
+                 #if user clicked on paper cpu will randomly generate between rock paper or scissors 
                 cpu_choice = cpu_randchoice()     
+            #if clicked on scissor will call cpu to generate
             elif scissors_image_rect.collidepoint(mouse_coords):
                 player_choice = "scissors"  
+                 #if user clicked on paper cpu will randomly generate between rock paper or scissors 
                 cpu_choice = cpu_randchoice()     
 
                 
                 
     ########## input ###########
-    # HCI - human computer interaction...
-    # keyboard, mouse, controller, vr headset
+    # HCI = human computer interaction
+    # keyboard, mouse, controller, vr headset, touch screen
     
     ########## update ###################
+    #move the images by one in x and y cord
     # rock_image_rect.x += 1
     # rock_image_rect.y += 1
 
@@ -138,12 +146,23 @@ while running:
         #moves cpu choice to x, y cords
         cpu_paper_image_rect.x = 450
         cpu_paper_image_rect.y = 150
+        #draws player image
+        screen.blit(player_image,player_image_rect)
+        screen.blit(computer_image, computer_image_rect)
         #displays the text onto the screen if called
         draw_text("YOU TIED", 22, BLUE, WIDTH/2, HEIGHT/10)
         #when player choses paper it will move the other pictures of the screen
         if player_choice == "paper":
             rock_image_rect.x = 5000
             scissors_image_rect.x = 5000
+            #moves player image after user input
+        if player_choice == "paper":
+            player_image_rect.x = 150
+            player_image_rect.y = 50
+           #moves computer_image_rect over after user input
+        if player_choice == "paper":
+            computer_image_rect.x = 480
+            computer_image_rect.y = 50
         
     if player_choice == "paper" and cpu_choice == "scissors":
         screen.blit(paper_image, paper_image_rect)
@@ -153,8 +172,13 @@ while running:
         screen.blit(scissors_image, cpu_scissors_image_rect)
         cpu_scissors_image_rect.x = 450
         cpu_scissors_image_rect.y = 150
+        screen.blit(player_image,player_image_rect)
+        screen.blit(computer_image, computer_image_rect)
         #displays the text onto the screen if called
         draw_text("YOU LOSE", 22, RED, WIDTH/2, HEIGHT/10)
+        if player_choice == "paper":
+            player_image_rect.x = 150
+            player_image_rect.y = 50
 
     if player_choice == "paper" and cpu_choice == "rock":
         screen.blit(paper_image, paper_image_rect)
@@ -164,8 +188,13 @@ while running:
         screen.blit(rock_image, cpu_rock_image_rect)
         cpu_rock_image_rect.x = 450
         cpu_rock_image_rect.y = 150
+        screen.blit(player_image,player_image_rect)
+        screen.blit(computer_image, computer_image_rect)
         #displays the text onto the screen if called
         draw_text("YOU WIN", 22, GREEN, WIDTH/2, HEIGHT/10)
+        if player_choice == "paper":
+            player_image_rect.x = 150
+            player_image_rect.y = 50
             
     ############# scissors ##############
     if player_choice == "scissors" and cpu_choice == "scissors":
@@ -176,6 +205,10 @@ while running:
         screen.blit(scissors_image, cpu_scissors_image_rect)
         cpu_scissors_image_rect.x = 500
         cpu_scissors_image_rect.y = 150
+        #draws image after user input
+        screen.blit(player_image,player_image_rect)
+        #draws computer image after user input
+        screen.blit(computer_image, computer_image_rect)
         #displays the text onto the screen if called
         draw_text("YOU TIED", 22, BLUE, WIDTH/2, HEIGHT/10)
         #when player choses scissors it will move the other images off the screen
@@ -184,6 +217,14 @@ while running:
             rock_image_rect.x = 5000
             cpu_paper_image_rect.x = 5000
             cpu_rock_image_rect.x = 5000
+            #moves player image after user input
+        if player_choice == "scissors":
+            player_image_rect.x = 150
+            player_image_rect.y = 50
+            #moves computer image after called
+        if player_choice == "scissors":
+            computer_image_rect.x = 480
+            computer_image_rect.y = 50
 
     if player_choice == "scissors" and cpu_choice == "paper":
         screen.blit(scissors_image, scissors_image_rect)
@@ -193,6 +234,8 @@ while running:
         screen.blit(paper_image, cpu_paper_image_rect)
         cpu_paper_image_rect.x = 500
         cpu_paper_image_rect.y = 150
+        screen.blit(player_image,player_image_rect)
+        screen.blit(computer_image, computer_image_rect)
         #displays the text onto the screen if called
         draw_text("YOU WIN", 22, GREEN, WIDTH/2, HEIGHT/10)
 
@@ -205,6 +248,8 @@ while running:
         #sets cpu image to x, y cords 
         cpu_rock_image_rect.x = 500
         cpu_rock_image_rect.y = 150
+        screen.blit(player_image,player_image_rect)
+        screen.blit(computer_image, computer_image_rect)
         #displays the text onto the screen if called
         draw_text("YOU WIN", 22, GREEN, WIDTH/2, HEIGHT/10)
 ################# rock #################
@@ -219,12 +264,23 @@ while running:
         #moves cpu image to specific x, y cords
         cpu_rock_image_rect.x = 500
         cpu_rock_image_rect.y = 150
+        #draw player image 
+        screen.blit(player_image,player_image_rect)
+        #draws computer image
+        screen.blit(computer_image, computer_image_rect)
         #displays the text onto the screen if called in color blue
         draw_text("YOU TIED", 22, BLUE, WIDTH/2, HEIGHT/10)
         #when player chooses rock it will move other images off the screen
         if player_choice == "rock":
             paper_image_rect.x = 5000
             scissors_image_rect.x = 5000
+            #moves player image after user input
+        if player_choice == "rock":
+            player_image_rect.x = 150
+            player_image_rect.y = 50
+        if player_choice == "rock":
+            computer_image_rect.x = 480
+            computer_image_rect.y = 50
 
     if player_choice == "rock" and cpu_choice == "paper":
         screen.blit(rock_image, rock_image_rect)
@@ -235,8 +291,15 @@ while running:
         #moves the cpu image paper to x , y cords
         cpu_paper_image_rect.x = 500
         cpu_paper_image_rect.y = 150
+        #drws player image 
+        screen.blit(player_image,player_image_rect)
+        screen.blit(computer_image, computer_image_rect)
         #displays the text onto the screen if called in color red
         draw_text("YOU LOSE", 22, RED, WIDTH/2, HEIGHT/10)
+        #moves computer image over after user input
+        if player_choice == "rock":
+            computer_image_rect.x = 480
+            computer_image_rect.y = 50
     #if statment that if player choses rock and cpu choses scissors it calles the images to be put next to eachother
     if player_choice == "rock" and cpu_choice == "scissors":
         #displays rock image
@@ -249,6 +312,9 @@ while running:
         #moves cpu image (scissors) to x, y cords
         cpu_scissors_image_rect.x = 500
         cpu_scissors_image_rect.y = 150
+        #draws player image
+        screen.blit(player_image,player_image_rect)
+        screen.blit(computer_image, computer_image_rect)
         #displays the text onto the screen if called in color green
         draw_text("YOU WIN", 22, GREEN, WIDTH/2, HEIGHT/10)
 
